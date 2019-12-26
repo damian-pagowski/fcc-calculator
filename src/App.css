@@ -1,38 +1,152 @@
-.App {
+:root {
+  --main-bg-color: rgb(197, 225, 224);
+  --secondary-bg-color: rgb(255, 220, 99);
+  --text-grey: rgb(110, 112, 112);
+}
+
+body {
+  box-sizing: border-box;
+  font-family: "Press Start 2P", cursive;
+  height: 100vh;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+}
+#app-container {
+  padding: 1rem;
+  width: calc(100% - 2rem);
+  height: calc(100% - 2rem);
+  background: url("images/math.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+#display {
+  padding: 1rem;
+  box-shadow: 0px 0px 33px 9px rgba(0, 0, 0, 0.75);
+  width: 400px;
+  height: 5rem;
+  background: #000;
+  margin: auto;
+  color: greenyellow;
+  font-size: 2rem;
+  text-align: right;
+  border-radius: 6px;
+}
+#display-content {
+  margin: 0;
+}
+
+.myButton {
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 0px 1px 0px 0px #ffffff;
+  background: linear-gradient(to bottom, #f9f9f9 5%, #e9e9e9 100%);
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  border: 1px solid #dcdcdc;
+  display: inline-block;
+  cursor: pointer;
+  color: #666666;
   text-align: center;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #ffffff;
+  position: relative;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.button-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.myButton:hover {
+  background: linear-gradient(to bottom, #e9e9e9 5%, #f9f9f9 100%);
+  background-color: #e9e9e9;
+}
+.myButton:active {
+  position: relative;
+  top: 1px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.parent {
+  background: #fff;
+  margin: auto;
+  display: grid;
+  grid-row-gap: 1rem;
+  grid-column-gap: 1rem;
+  width: 400px;
+  height: 300px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  padding: 1rem;
+  box-shadow: 0px 0px 33px 9px rgba(0, 0, 0, 0.75);
+  border-radius: 6px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.div1 {
+  grid-area: 1 / 1 / 2 / 2;
+}
+.div2 {
+  grid-area: 1 / 2 / 2 / 3;
+}
+.div3 {
+  grid-area: 1 / 3 / 2 / 4;
+}
+.div4 {
+  grid-area: 1 / 4 / 2 / 5;
+}
+.div5 {
+  grid-area: 2 / 1 / 3 / 2;
+}
+.div6 {
+  grid-area: 2 / 2 / 3 / 3;
+}
+.div7 {
+  grid-area: 2 / 3 / 3 / 4;
+}
+.div8 {
+  grid-area: 2 / 4 / 3 / 5;
+}
+.div9 {
+  grid-area: 3 / 1 / 4 / 2;
+}
+.div10 {
+  grid-area: 3 / 2 / 4 / 3;
+}
+.div11 {
+  grid-area: 3 / 3 / 4 / 4;
+}
+.div12 {
+  grid-area: 4 / 1 / 5 / 2;
+}
+.div13 {
+  grid-area: 4 / 2 / 5 / 3;
+}
+.div14 {
+  grid-area: 4 / 3 / 5 / 4;
+}
+.div15 {
+  grid-area: 3 / 4 / 4 / 5;
+}
+.div16 {
+  grid-area: 4 / 4 / 5 / 5;
 }
 
-.App-link {
-  color: #61dafb;
+.div17 {
+  grid-area: 5 / 1 / 6 / 2;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.div18 {
+  grid-area: 5 / 2 / 6 / 3;
+}
+.div19 {
+  grid-area: 5 / 3 / 6 / 4;
+}
+.div20 {
+  grid-area: 5 / 4 / 6 / 5;
 }
