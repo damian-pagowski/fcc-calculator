@@ -1,5 +1,7 @@
 module.exports = {
   handleDigit: function(stateCopy, buttonValue) {
+    console.log("STATE COPY - handle digit: " + JSON.stringify(stateCopy));
+
     if (stateCopy.lastInput == "equals") return stateCopy;
     if (!(stateCopy.lastInput == "leadingZero" && buttonValue == 0)) {
       let formula = stateCopy.init
@@ -61,7 +63,7 @@ module.exports = {
     if (stateCopy.lastInput == "equals") return stateCopy;
     let display = null;
     try {
-      display = eval(stateCopy.formula);
+      display = new String(eval(stateCopy.formula));
     } catch (e) {
       console.log("Error while evaluating expression: " + e);
     }
@@ -77,27 +79,43 @@ module.exports = {
   },
 
   handleOperator: function(stateCopy, buttonValue) {
-    if (stateCopy.lastInput == "equals") return stateCopy;
     let formula;
-    let operatorsUsed;
+    let operatorsUsed = stateCopy.operatorsUsed;
     let currentOperation = buttonValue;
-
-    if (stateCopy.lastInput == "operator") {
-      // if previous is operator , current minus
-      // add to operator list
-      // else - just overwrite
-      formula = removeLastChars(
-        stateCopy.formula,
-        stateCopy.operatorsUsed
-      ).concat(buttonValue);
+    if (stateCopy.lastInput == "equals") {
+      formula = "".concat(stateCopy.display).concat(buttonValue);
       operatorsUsed = 1;
-    } else {
+    }
+    if (stateCopy.currentOperation == buttonValue) {
+      return stateCopy;
+    }
+    if (stateCopy.lastInput == "operator") {
+      if (buttonValue == "-") {
+        formula = stateCopy.formula.concat(buttonValue);
+        operatorsUsed += 1;
+      } else {
+        formula = removeLastChars(
+          stateCopy.formula,
+          stateCopy.operatorsUsed
+        ).concat(buttonValue);
+        operatorsUsed = 1;
+      }
+    }
+
+    if (stateCopy.lastInput == "leadingZero") {
+      formula = "".concat(buttonValue);
+      operatorsUsed = 1;
+      console.log("cyk");
+    }
+
+    if (stateCopy.lastInput == "digit") {
       formula = stateCopy.formula.concat(buttonValue);
       operatorsUsed = 1;
     }
 
     return {
       formula,
+      init: false,
       display: buttonValue,
       lastInput: "operator",
       isDecimal: false,
@@ -106,11 +124,6 @@ module.exports = {
     };
   },
 };
-
-function replaceLastChar(str, lastChar) {
-  let newStr = removeLastChars(str, 1);
-  return newStr.concat(lastChar);
-}
 
 function removeLastChars(str, numberOfChar) {
   return str.substring(0, str.length - numberOfChar);
