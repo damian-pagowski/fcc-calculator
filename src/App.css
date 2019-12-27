@@ -24,7 +24,14 @@ body {
   background-position: center center;
 }
 
-#display {
+#title{
+  font-family: 'Rye', cursive;
+  text-align: center;
+  font-size: 3rem;
+  text-shadow: 1px 2px 3px #666;
+}
+
+#display-area {
   padding: 1rem;
   box-shadow: 0px 0px 33px 9px rgba(0, 0, 0, 0.75);
   width: 400px;
@@ -32,12 +39,24 @@ body {
   background: #000;
   margin: auto;
   color: greenyellow;
-  font-size: 2rem;
   text-align: right;
   border-radius: 6px;
 }
-#display-content {
+#display {
+  padding-top: 1rem;
   margin: 0;
+  font-size: 2rem;
+}
+#formula {
+  padding-top: 0.9rem;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .myButton {

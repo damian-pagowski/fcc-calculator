@@ -3,8 +3,9 @@ import "./App.css";
 import Keyboard from "./components/Keyboard";
 import Display from "./components/Display";
 
+const ip = require("./controller/InputProcessor");
 const data = {
-  zero: { id: "zero", label: "0", val: 0 },
+  zero: { id: "zero", label: "0", val: "0" },
   one: { id: "one", label: "1", val: 1 },
   two: { id: "two", label: "2", val: 2 },
   three: { id: "three", label: "3", val: 3 },
@@ -24,49 +25,35 @@ const data = {
 };
 class App extends React.Component {
   state = {
-    displayContent: "",
-    current: "",
+    init: true,
+    formula: "0",
+    display: "0",
+    lastInput: "leadingZero",
+    currentOperation: null,
+    isDecimal: false,
+    operatorsUsed: 0,
   };
 
-  keyPressHandler = e => {
-    const buttonId = e.target.id;
-    console.log("CLICKED - ID: " + e.target.id);
+  keyPressHandler = buttonId => {
     const button = data[buttonId];
+    console.log("CLICKED - ID: " + JSON.stringify(button));
 
     if (button) {
       if (button.val) {
-        let updatedWithValue = this.state.displayContent.concat(button.val);
-        this.setState({
-          displayContent: updatedWithValue,
-          current: button.val,
-        });
-        console.log(JSON.stringify(this.state));
-      }
-      if (button.operator) {
-        let updatedWithOperator = this.state.displayContent.concat(
-          button.operator
-        );
-        this.setState({
-          displayContent: updatedWithOperator,
-          current: button.operator,
-        });
+        this.setState(ip.handleDigit({ ...this.state }, button.val));
       }
       if (button.clear) {
-        this.setState({
-          displayContent: "",
-          current: "",
-        });
+        this.setState(ip.handleClear());
+      }
+      if (button.operator == ".") {
+        this.setState(ip.handleDot({ ...this.state }));
+      }
+
+      if (button.operator && button.operator != ".") {
+        this.setState(ip.handleOperator({ ...this.state }, button.operator));
       }
       if (button.equals) {
-        let result = null;
-        try {
-          result = eval(this.state.displayContent);
-        } catch (e) {}
-
-        let toDisplay = result
-          ? `${this.state.displayContent} = ${result}`
-          : "ERROR";
-        this.setState({ displayContent: toDisplay, current: "" });
+        this.setState(ip.handleEquals({ ...this.state }));
       }
     }
   };
@@ -74,7 +61,8 @@ class App extends React.Component {
   render() {
     return (
       <div className="App" id="app-container">
-        <Display content={this.state.displayContent} />
+        <h1 id="title">Hipster Vintage Calc</h1>
+        <Display display={this.state.display} formula={this.state.formula} />
         <Keyboard data={data} handler={this.keyPressHandler} />
       </div>
     );
