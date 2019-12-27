@@ -8,7 +8,7 @@ module.exports = {
         ? "".concat(buttonValue)
         : stateCopy.formula.concat(buttonValue);
       let display =
-        stateCopy.lastInput == "digit" && !stateCopy.init
+        (stateCopy.lastInput == "digit" || stateCopy.lastInput =="dot") && !stateCopy.init
           ? stateCopy.display.concat(buttonValue)
           : "".concat(buttonValue);
       return {
@@ -40,7 +40,7 @@ module.exports = {
     return {
       init: false,
       formula,
-      display: ".",
+      display: stateCopy.display.concat("."),
       lastInput: "dot",
       isDecimal: true,
       operatorsUsed: 0,

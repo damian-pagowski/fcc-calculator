@@ -36,8 +36,6 @@ class App extends React.Component {
 
   keyPressHandler = buttonId => {
     const button = data[buttonId];
-    console.log("CLICKED - ID: " + JSON.stringify(button));
-
     if (button) {
       if (button.val) {
         this.setState(ip.handleDigit({ ...this.state }, button.val));
